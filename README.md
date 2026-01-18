@@ -310,9 +310,7 @@ Each application tracks:
 - Calendar integration
 - Chrome extension for quick adds
 
-## 📝 License
 
-MIT
 
 ## 👥 Contributing
 
@@ -320,7 +318,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📧 Support
 
-For support, email your-email@example.com or open an issue in the repository.
+For support, email: yashrajsherke49@gmail.com or open an issue in the repository.
 
 ---
 
