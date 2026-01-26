@@ -96,8 +96,10 @@ export const validateEnv = (): void => {
         throw new Error(errorMessage);
     }
 
-    // Success message
-    console.log('✅ Environment variables validated successfully');
+    // Success message (only in non-production)
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('✅ Environment variables validated successfully');
+    }
 };
 
 export default validateEnv;
