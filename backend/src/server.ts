@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.json({
         success: true,
         message: 'Job Application Tracker API',
