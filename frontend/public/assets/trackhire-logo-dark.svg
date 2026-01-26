@@ -1,0 +1,46 @@
+<svg width="320" height="80" viewBox="0 0 320 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark Mode Logo: Icon + Text with Lighter Colors -->
+  
+  <!-- Icon (scaled down) -->
+  <g transform="translate(5, 5)">
+    <!-- Circular progress base -->
+    <circle cx="35" cy="35" r="28" stroke="#a5b4fc" stroke-width="3" fill="none" opacity="0.3"/>
+    
+    <!-- Progress arc with gradient -->
+    <path d="M 35 7 A 28 28 0 1 1 15.5 50" stroke="url(#gradientBlueDark)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    
+    <!-- Checkmarks -->
+    <g stroke="#c4b5fd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M 24 34 L 29 39 L 39 27"/>
+      <path d="M 42 45 L 46 49 L 53 41" opacity="0.8"/>
+    </g>
+    
+    <!-- Upward arrow -->
+    <g fill="url(#gradientPurpleDark)">
+      <rect x="32" y="18" width="6" height="24" rx="1"/>
+      <path d="M 35 12 L 28 20 L 35 17 L 42 20 Z"/>
+    </g>
+  </g>
+  
+  <!-- Text with gradient -->
+  <text x="85" y="50" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="32" font-weight="700" letter-spacing="-1">
+    <tspan fill="url(#gradientTextDark)">TrackHire</tspan>
+  </text>
+  
+  <!-- Gradient definitions for dark mode -->
+  <defs>
+    <linearGradient id="gradientBlueDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#818cf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradientPurpleDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c4b5fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9d5ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradientTextDark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#a5b4fc;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#c4b5fd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9d5ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

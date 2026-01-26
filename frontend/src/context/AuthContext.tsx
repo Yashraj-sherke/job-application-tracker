@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
 import { authApi } from '../api/auth';
 import { User } from '../types';
 import toast from 'react-hot-toast';
@@ -18,41 +18,54 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const currentUser = await authApi.getCurrentUser();
+                setUser(currentUser);
+            } catch (error) {
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         checkAuth();
-    }, []);
+    }, []); // Empty dependency array - runs only once
 
-    const checkAuth = async () => {
-        try {
-            const currentUser = await authApi.getCurrentUser();
-            setUser(currentUser);
-        } catch (error) {
-            setUser(null);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const login = async (email: string, password: string) => {
+    const login = useCallback(async (email: string, password: string) => {
         const user = await authApi.login(email, password);
         setUser(user);
         toast.success('Logged in successfully!');
-    };
+    }, []);
 
-    const register = async (name: string, email: string, password: string) => {
+    const register = useCallback(async (name: string, email: string, password: string) => {
         const user = await authApi.register(name, email, password);
         setUser(user);
         toast.success('Account created successfully!');
-    };
+    }, []);
 
-    const logout = async () => {
+    const logout = useCallback(async () => {
         await authApi.logout();
         setUser(null);
         toast.success('Logged out successfully!');
-    };
+    }, []);
+
+    // Memoize the context value to prevent unnecessary re-renders
+    const value = useMemo(
+        () => ({ user, loading, login, register, logout }),
+        [user, loading, login, register, logout]
+    );
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     );
+};
+export const useAuth = () => {
+    const context = React.useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
 };

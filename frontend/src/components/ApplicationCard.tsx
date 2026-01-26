@@ -28,15 +28,15 @@ const ApplicationCard: React.FC<ApplicationCardProps> = ({ application, onClick 
 
     const cardContent = (
         <div
-            className="card hover:shadow-md transition-shadow cursor-pointer"
+            className="card hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 backdrop-blur-sm transform hover:scale-105"
             onClick={onClick}
         >
             <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 text-lg mb-1">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg mb-1">
                         {application.companyName}
                     </h3>
-                    <p className="text-gray-600 text-sm">{application.jobTitle}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">{application.jobTitle}</p>
                 </div>
                 <StatusBadge status={application.status} />
             </div>
@@ -46,16 +46,16 @@ const ApplicationCard: React.FC<ApplicationCardProps> = ({ application, onClick 
                     {application.jobPortal}
                 </span>
                 {application.location && (
-                    <span className="badge bg-gray-100 text-gray-700">
+                    <span className="badge bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
                         📍 {application.location}
                     </span>
                 )}
             </div>
 
-            <div className="flex items-center justify-between text-xs text-gray-500">
+            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                 <span>Applied: {format(new Date(application.dateApplied), 'MMM d, yyyy')}</span>
                 {application.followUpDate && (
-                    <span className="text-orange-600 font-medium">
+                    <span className="text-orange-600 dark:text-orange-400 font-medium">
                         Follow-up: {format(new Date(application.followUpDate), 'MMM d')}
                     </span>
                 )}
