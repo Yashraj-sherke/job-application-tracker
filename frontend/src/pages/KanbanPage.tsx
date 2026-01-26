@@ -75,7 +75,7 @@ const KanbanPage = () => {
     if (isLoading) {
         return (
             <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 dark:border-indigo-400"></div>
             </div>
         );
     }
@@ -83,8 +83,8 @@ const KanbanPage = () => {
     return (
         <div>
             <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Kanban Board</h1>
-                <p className="text-gray-600">Drag and drop applications to update their status</p>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">Kanban Board</h1>
+                <p className="text-gray-600 dark:text-gray-400">Drag and drop applications to update their status</p>
             </div>
 
             <DndContext
@@ -103,11 +103,11 @@ const KanbanPage = () => {
                                     id={status}
                                     className="flex-shrink-0 w-80"
                                 >
-                                    <div className="bg-gray-100 rounded-lg p-4 h-full">
+                                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 h-full border border-gray-200 dark:border-gray-700">
                                         <div className="flex items-center justify-between mb-4">
                                             <div className="flex items-center space-x-2">
                                                 <StatusBadge status={status} />
-                                                <span className="text-sm font-medium text-gray-600">
+                                                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                                                     {statusApps.length}
                                                 </span>
                                             </div>
