@@ -2,6 +2,7 @@
     "name": "job-tracker-frontend",
     "private": true,
     "version": "1.0.0",
+    "description": "Job Application Tracker - Track your job applications with ease",
     "type": "module",
     "scripts": {
         "dev": "vite",

@@ -1,19 +1,42 @@
-import express, { Response } from 'express';
+import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
+<<<<<<< HEAD
 
+=======
+import rateLimit from 'express-rate-limit';
+>>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
 import User from '../models/User';
 import { protect, AuthRequest } from '../middleware/auth';
 
 const router = express.Router();
 
+// Rate limiter for auth endpoints
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // 5 requests per window
+    message: {
+        success: false,
+        message: 'Too many authentication attempts, please try again later',
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 // Generate JWT token
 const generateToken = (id: string): string => {
+<<<<<<< HEAD
     const secret = process.env.JWT_SECRET;
     if (!secret) {
         throw new Error('JWT_SECRET is not defined');
     }
     return jwt.sign({ id }, secret, {
+=======
+    if (!process.env.JWT_SECRET) {
+        throw new Error('JWT_SECRET is not defined');
+    }
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+>>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
         expiresIn: '7d',
     });
 };
@@ -26,6 +49,7 @@ const generateToken = (id: string): string => {
 // @access  Public
 router.post(
     '/register',
+    authLimiter,
     [
         body('name').trim().notEmpty().withMessage('Name is required'),
         body('email').isEmail().withMessage('Please provide a valid email'),
@@ -33,7 +57,11 @@ router.post(
             .isLength({ min: 6 })
             .withMessage('Password must be at least 6 characters'),
     ],
+<<<<<<< HEAD
     async (req: express.Request, res: Response) => {
+=======
+    async (req: Request, res: Response) => {
+>>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -70,7 +98,7 @@ router.post(
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict',
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
                 maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
             });
 
@@ -97,11 +125,16 @@ router.post(
 // @access  Public
 router.post(
     '/login',
+    authLimiter,
     [
         body('email').isEmail().withMessage('Please provide a valid email'),
         body('password').notEmpty().withMessage('Password is required'),
     ],
+<<<<<<< HEAD
     async (req: express.Request, res: Response) => {
+=======
+    async (req: Request, res: Response) => {
+>>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -143,7 +176,7 @@ router.post(
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict',
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
                 maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
             });
 

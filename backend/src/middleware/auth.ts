@@ -23,7 +23,10 @@ export const protect = async (
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET || '') as { id: string };
+            if (!process.env.JWT_SECRET) {
+                throw new Error('JWT_SECRET is not defined');
+            }
+            const decoded = jwt.verify(token, process.env.JWT_SECRET) as { id: string };
 
             const user = await User.findById(decoded.id);
 
