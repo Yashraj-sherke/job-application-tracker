@@ -2,7 +2,8 @@ import express, { Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import Application from '../models/Application';
 import { protect, AuthRequest } from '../middleware/auth';
-import { Parser } from 'json2csv';
+import { parse } from 'json2csv';
+
 import multer from 'multer';
 import csvParser from 'csv-parser';
 import { Readable } from 'stream';
@@ -184,8 +185,7 @@ router.get('/export', async (req: AuthRequest, res: Response) => {
             'resumeVersion',
         ];
 
-        const parser = new Parser({ fields });
-        const csv = parser.parse(applications);
+        const csv = parse(applications, { fields });
 
         res.header('Content-Type', 'text/csv');
         res.header('Content-Disposition', 'attachment; filename=applications.csv');
