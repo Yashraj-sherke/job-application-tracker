@@ -1,4 +1,8 @@
 import dotenv from 'dotenv';
+<<<<<<< HEAD
+=======
+
+>>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
 import User from '../models/User';
 import Application from '../models/Application';
 import connectDB from '../config/db';
