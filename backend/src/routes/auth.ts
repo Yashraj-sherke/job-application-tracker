@@ -1,6 +1,7 @@
 import express, { Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
+
 import User from '../models/User';
 import { protect, AuthRequest } from '../middleware/auth';
 
@@ -8,10 +9,17 @@ const router = express.Router();
 
 // Generate JWT token
 const generateToken = (id: string): string => {
-    return jwt.sign({ id }, process.env.JWT_SECRET || '', {
-        expiresIn: process.env.JWT_EXPIRE || '7d',
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+        throw new Error('JWT_SECRET is not defined');
+    }
+    return jwt.sign({ id }, secret, {
+        expiresIn: '7d',
     });
 };
+
+
+
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
@@ -25,7 +33,7 @@ router.post(
             .isLength({ min: 6 })
             .withMessage('Password must be at least 6 characters'),
     ],
-    async (req, res: Response) => {
+    async (req: express.Request, res: Response) => {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -93,7 +101,7 @@ router.post(
         body('email').isEmail().withMessage('Please provide a valid email'),
         body('password').notEmpty().withMessage('Password is required'),
     ],
-    async (req, res: Response) => {
+    async (req: express.Request, res: Response) => {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -160,7 +168,7 @@ router.post(
 // @route   POST /api/auth/logout
 // @desc    Logout user
 // @access  Private
-router.post('/logout', (req, res: Response) => {
+router.post('/logout', (_req, res: Response) => {
     res.cookie('token', '', {
         httpOnly: true,
         expires: new Date(0),

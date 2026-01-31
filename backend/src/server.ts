@@ -19,7 +19,11 @@ connectDB();
 // Middleware
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+        origin: [
+            'http://localhost:5173',
+            'https://job-application-tracker-r7mt9fbdm-chut-burs-projects.vercel.app',
+            process.env.FRONTEND_URL
+        ].filter(Boolean) as string[],
         credentials: true,
     })
 );
@@ -28,13 +32,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.json({
         success: true,
         message: 'Job Application Tracker API',
         version: '1.0.0',
     });
 });
+
+// Health check endpoint for Render
+app.get('/api/health', (_req, res) => {
+    res.status(200).json({
+        success: true,
+        message: 'Server is healthy',
+        timestamp: new Date().toISOString(),
+    });
+});
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/applications', applicationRoutes);

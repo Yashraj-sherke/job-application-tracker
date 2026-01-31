@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useFollowUps } from '../hooks/useApplications';
 import ApplicationCard from '../components/ApplicationCard';
 import ApplicationFormModal from '../components/ApplicationFormModal';
-import { format, isPast, isToday } from 'date-fns';
+import { isPast, isToday } from 'date-fns';
+
 
 const FollowUpsPage = () => {
     const { data: followUps, isLoading } = useFollowUps();
