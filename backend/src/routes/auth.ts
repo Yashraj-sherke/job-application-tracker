@@ -1,11 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
-<<<<<<< HEAD
-
-=======
 import rateLimit from 'express-rate-limit';
->>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
 import User from '../models/User';
 import { protect, AuthRequest } from '../middleware/auth';
 
@@ -25,18 +21,10 @@ const authLimiter = rateLimit({
 
 // Generate JWT token
 const generateToken = (id: string): string => {
-<<<<<<< HEAD
-    const secret = process.env.JWT_SECRET;
-    if (!secret) {
-        throw new Error('JWT_SECRET is not defined');
-    }
-    return jwt.sign({ id }, secret, {
-=======
     if (!process.env.JWT_SECRET) {
         throw new Error('JWT_SECRET is not defined');
     }
     return jwt.sign({ id }, process.env.JWT_SECRET, {
->>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
         expiresIn: '7d',
     });
 };
@@ -57,11 +45,7 @@ router.post(
             .isLength({ min: 6 })
             .withMessage('Password must be at least 6 characters'),
     ],
-<<<<<<< HEAD
-    async (req: express.Request, res: Response) => {
-=======
     async (req: Request, res: Response) => {
->>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -130,11 +114,7 @@ router.post(
         body('email').isEmail().withMessage('Please provide a valid email'),
         body('password').notEmpty().withMessage('Password is required'),
     ],
-<<<<<<< HEAD
-    async (req: express.Request, res: Response) => {
-=======
     async (req: Request, res: Response) => {
->>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {

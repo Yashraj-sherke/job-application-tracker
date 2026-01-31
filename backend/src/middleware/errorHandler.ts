@@ -18,10 +18,8 @@ export const errorHandler = (
     });
 };
 
-<<<<<<< HEAD
 
-=======
->>>>>>> dda24cf964f4710fb8f675b1331c66e945c942df
+
 export const notFound = (req: Request, res: Response, _next: NextFunction): void => {
     res.status(404).json({
         success: false,
