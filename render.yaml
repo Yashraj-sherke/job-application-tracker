@@ -21,5 +21,5 @@ services:
       - key: JWT_EXPIRE
         value: 7d
       - key: FRONTEND_URL
-        sync: false
+        value: https://job-application-tracker-three-peach.vercel.app
     autoDeploy: true

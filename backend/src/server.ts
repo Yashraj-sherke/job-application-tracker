@@ -60,6 +60,19 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
+// Request logging middleware (production debugging)
+if (process.env.NODE_ENV === 'production') {
+    app.use((req, _res, next) => {
+        console.log(`${req.method} ${req.path} - Origin: ${req.headers.origin || 'none'}`);
+        console.log('Cookies:', req.cookies);
+        console.log('Headers:', {
+            cookie: req.headers.cookie,
+            authorization: req.headers.authorization,
+        });
+        next();
+    });
+}
+
 // Health check endpoints
 app.get('/health', (_req: Request, res: Response) => {
     res.status(200).json({
@@ -85,15 +98,6 @@ app.get('/', (_req, res) => {
         success: true,
         message: 'Job Application Tracker API',
         version: '1.0.0',
-    });
-});
-
-// Health check endpoint for Render
-app.get('/api/health', (_req, res) => {
-    res.status(200).json({
-        success: true,
-        message: 'Server is healthy',
-        timestamp: new Date().toISOString(),
     });
 });
 
