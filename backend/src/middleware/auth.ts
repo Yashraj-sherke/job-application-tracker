@@ -12,9 +12,13 @@ export const protect = async (
     next: NextFunction
 ): Promise<void> => {
     try {
+        console.log('Auth middleware - Cookies:', req.cookies);
+        console.log('Auth middleware - Token:', req.cookies.token ? 'Present' : 'Missing');
+
         const token = req.cookies.token;
 
         if (!token) {
+            console.log('Auth failed: No token in cookies');
             res.status(401).json({
                 success: false,
                 message: 'Not authorized to access this route',
