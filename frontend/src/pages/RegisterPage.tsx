@@ -92,6 +92,7 @@ const RegisterPage = () => {
                                         onChange={(e) => setName(e.target.value)}
                                         className="input"
                                         placeholder="John Doe"
+                                        autoComplete="name"
                                     />
                                 </div>
 
@@ -107,6 +108,7 @@ const RegisterPage = () => {
                                         onChange={(e) => setEmail(e.target.value)}
                                         className="input"
                                         placeholder="you@example.com"
+                                        autoComplete="email"
                                     />
                                 </div>
 
@@ -122,6 +124,7 @@ const RegisterPage = () => {
                                         onChange={(e) => setPassword(e.target.value)}
                                         className="input"
                                         placeholder="••••••••"
+                                        autoComplete="new-password"
                                     />
                                 </div>
 
@@ -137,6 +140,7 @@ const RegisterPage = () => {
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         className="input"
                                         placeholder="••••••••"
+                                        autoComplete="new-password"
                                     />
                                 </div>
 

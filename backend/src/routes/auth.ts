@@ -8,9 +8,10 @@ import { protect, AuthRequest } from '../middleware/auth';
 const router = express.Router();
 
 // Rate limiter for auth endpoints
+// More lenient in development to avoid blocking during testing
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // 5 requests per window
+    max: process.env.NODE_ENV === 'production' ? 5 : 100, // 5 in production, 100 in development
     message: {
         success: false,
         message: 'Too many authentication attempts, please try again later',

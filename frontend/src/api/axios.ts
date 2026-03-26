@@ -14,6 +14,14 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
+        // Log detailed error information for debugging
+        console.error('API Error:', {
+            url: error.config?.url,
+            method: error.config?.method,
+            status: error.response?.status,
+            data: error.response?.data,
+        });
+
         if (error.response) {
             const message = error.response.data?.message || 'An error occurred';
 
@@ -24,12 +32,20 @@ axiosInstance.interceptors.response.use(
                 if (!isAuthPage) {
                     toast.error('Session expired. Please login again.');
                     window.location.href = '/login';
+                } else {
+                    // Show error on auth pages without redirecting
+                    toast.error(message);
                 }
+            } else if (error.response.status === 429) {
+                // Rate limit error
+                toast.error('Too many attempts. Please try again later.');
             } else {
                 toast.error(message);
             }
         } else if (error.request) {
-            toast.error('Network error. Please check your connection.');
+            // Network error - backend might not be running
+            console.error('Network error - is the backend server running?');
+            toast.error('Cannot connect to server. Please ensure the backend is running on http://localhost:5000');
         } else {
             toast.error('An unexpected error occurred.');
         }

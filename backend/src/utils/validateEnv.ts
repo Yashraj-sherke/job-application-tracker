@@ -78,8 +78,18 @@ export const validateEnv = (): void => {
     }
 
     // Validate FRONTEND_URL in production
-    if (isProduction && !process.env.FRONTEND_URL) {
-        console.warn('⚠️  WARNING: FRONTEND_URL is not set. CORS may not work correctly');
+    if (isProduction) {
+        if (!process.env.FRONTEND_URL) {
+            errors.push({
+                variable: 'FRONTEND_URL',
+                message: 'FRONTEND_URL is required in production for CORS configuration',
+            });
+        } else if (!process.env.FRONTEND_URL.startsWith('http://') && !process.env.FRONTEND_URL.startsWith('https://')) {
+            errors.push({
+                variable: 'FRONTEND_URL',
+                message: 'FRONTEND_URL must be a valid URL starting with http:// or https://',
+            });
+        }
     }
 
     // If there are errors, throw with detailed message

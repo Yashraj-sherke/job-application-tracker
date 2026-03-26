@@ -3,5 +3,11 @@ const API_URL = import.meta.env.VITE_API_URL ||
         ? 'https://job-application-tracker-uqbn.onrender.com/api'
         : 'http://localhost:5000/api');
 
-export default API_URL;
+// Log API URL in development for debugging
+if (import.meta.env.DEV) {
+    console.log('🔗 API URL:', API_URL);
+    console.log('📦 Mode:', import.meta.env.MODE);
+    console.log('🔧 VITE_API_URL:', import.meta.env.VITE_API_URL);
+}
 
+export default API_URL;
